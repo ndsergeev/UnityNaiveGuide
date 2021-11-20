@@ -1,0 +1,44 @@
+
+name: LaTeX Build
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  latex-assemble:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Commit report
+        run: |
+          git config user.name "$(git log -n 1 --pretty=format:%an)"
+          git config user.email "$(git log -n 1 --pretty=format:%ae)"
+          git checkout book
+          git checkout main -- .
+
+      - name: Get use python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+
+      - name: Make merge_markdowns permission to exec
+        run: chmod +x .github/workflows/merge_markdowns.py
+
+      - name: Markdown Generation
+        run: |
+          .github/workflows/merge_markdowns.py
+
+      - uses: docker://pandoc/latex:2.9
+        with:
+          args: --output=UnityNaiveGuide.pdf ./.github/workflows/md_to_latex_tmp.md
+
+      - name: Commit files
+        run: |
+          git reset
+          git add UnityNaiveGuide.pdf
+          git commit -m "AutoLatex build" -a
+          git push
