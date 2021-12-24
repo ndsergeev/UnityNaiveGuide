@@ -19,7 +19,7 @@ jobs:
 
       - name: Markdown Generation
         run: |
-          .github/workflows/python merge_markdowns.py
+          .github/workflows/merge_markdowns.py
 
 #       - name: Run a multi-line script
 #         run: |
