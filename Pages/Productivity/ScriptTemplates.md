@@ -1,3 +1,5 @@
+# [to Main](../../README.md)
+
 # Script Templates
 
 It is a very handy to adjust your script templates to make files that already have all the required setup. Simple use case can be legal notice that you can also do with code snippets..., but isn't having a script template easier? When the size of your project turns really big, it becomes quite handy. In addition to legal notice you can customize your template to make preset for DOTS or any other custom systems, e.g. [NightCache C# Script Template](https://github.com/ndsergeev/NightCache/blob/main/ScriptTemplates/81-C%23%20Script-NewBehaviourScript.cs.txt).

@@ -1,3 +1,5 @@
+# [to Main](../../README.md)
+
 # ```Shader.PropertyToID("")``` and ```Animator.StringToHash("")```
 
 The offcial pages for [Animator.StringToHash](https://docs.unity3d.com/ScriptReference/Animator.StringToHash.html) and [Shader.PropertyToID](https://docs.unity3d.com/ScriptReference/Shader.PropertyToID.html), where it clearly say "IDs are used for optimized setters and getters..." and "using property identifiers is more efficient than passing strings..." respectively. So you can consider avoiding strings as the parameter when you call any of these.
