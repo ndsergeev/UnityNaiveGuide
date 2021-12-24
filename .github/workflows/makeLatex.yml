@@ -15,9 +15,11 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
+      - uses: actions/setup-python@v3
 
       - name: Markdown Generation
-        run: python3 merge_markdowns.py
+        run: |
+          .github/workflows/python merge_markdowns.py
 
 #       - name: Run a multi-line script
 #         run: |
