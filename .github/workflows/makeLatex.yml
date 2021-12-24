@@ -3,7 +3,7 @@ name: LaTeX Build
 
 on:
   push:
-    branches: [ dev-ci-test ]
+    branches: [ main, dev-ci-test ]
     
 #   workflow_dispatch:
 
