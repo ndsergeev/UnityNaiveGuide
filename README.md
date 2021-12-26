@@ -1,5 +1,9 @@
 # UnityNaiveGuide
 
+[![LaTeX Build](https://github.com/ndsergeev/UnityNaiveGuide/actions/workflows/makeLatex.yml/badge.svg)](https://github.com/ndsergeev/UnityNaiveGuide/actions/workflows/makeLatex.yml)
+
+Alternatively checkout [*.pdf version](https://github.com/ndsergeev/UnityNaiveGuide/blob/book/UnityNaiveGuide.pdf).
+
 ## Preface
 
 Probably the main question that you might have once reaching this page and seing lots of text which varies in quality: "Is it one more Unity Guide?"\
