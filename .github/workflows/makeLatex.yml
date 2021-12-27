@@ -3,7 +3,7 @@ name: LaTeX Build
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main, dev ]
 
 jobs:
   latex-assemble:
@@ -13,13 +13,44 @@ jobs:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
-      - name: Commit report
+
+      - name: Setup config
         run: |
           git config user.name "$(git log -n 1 --pretty=format:%an)"
           git config user.email "$(git log -n 1 --pretty=format:%ae)"
+
+#     Checking that out branch is either main or dev so we can make
+#     a book builds to book and dev-book respectively
+      - name: Get current branch
+        shell: bash
+        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+        id: current_branch
+
+#     This step normally should not run as determined by on:push:branches: []
+      - name: Check on failures
+        if: |
+          ${{ steps.current_branch.outputs.branch }} != 'main' &&
+          ${{ steps.current_branch.outputs.branch }} != 'dev'
+        run: |
+          echo Error: Executed on the wrong branch: ${{ steps.current_branch.outputs.branch }}
+          exit 1
+
+      - name: IF branch is 'main' then update 'book'
+        id: is-main-branch
+        if: ${{ steps.current_branch.outputs.branch }} == 'main'
+        run: |
           git checkout book
           git checkout main -- .
 
+      - name: IF branch is 'dev' then update 'dev-book'
+        id: is-dev-branch
+        if: ${{ steps.current_branch.outputs.branch }} == 'dev'
+        run: |
+          git checkout dev-book
+          git checkout dev -- .
+
+#     If the condition above is success then we install python, asseble files
+#     and make latex document that we eventually push to either book or dev-book
       - name: Get use python 3.8
         uses: actions/setup-python@v2
         with:
