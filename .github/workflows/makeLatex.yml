@@ -29,23 +29,25 @@ jobs:
 #     This step normally should not run as determined by on:push:branches: []
       - name: Check on failures
         if: |
-          ${{ steps.current_branch.outputs.branch }} != 'main' &&
-          ${{ steps.current_branch.outputs.branch }} != 'dev'
+          steps.current_branch.outputs.branch != 'main' &&
+          steps.current_branch.outputs.branch != 'dev'
         run: |
           echo Error: Executed on the wrong branch: ${{ steps.current_branch.outputs.branch }}
           exit 1
 
       - name: IF branch is 'main' then update 'book'
         id: is-main-branch
-        if: ${{ steps.current_branch.outputs.branch }} == 'main'
+        if: steps.current_branch.outputs.branch == 'main'
         run: |
+          echo Current branch: ${{ steps.current_branch.outputs.branch }}
           git checkout book
           git checkout main -- .
 
       - name: IF branch is 'dev' then update 'dev-book'
         id: is-dev-branch
-        if: ${{ steps.current_branch.outputs.branch }} == 'dev'
+        if: steps.current_branch.outputs.branch == 'dev'
         run: |
+          echo Current branch: ${{ steps.current_branch.outputs.branch }}
           git checkout dev-book
           git checkout dev -- .
 
